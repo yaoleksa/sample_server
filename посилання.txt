@@ -1,3 +1,0 @@
-https://reference.wolfram.com/language/ref/Manual.html
-
-https://github.com/bertoort/sugoku - sudoku website
