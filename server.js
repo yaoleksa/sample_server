@@ -1,16 +1,25 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
+const https = require('https');
 const app = express();
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    next();
+let data = '';
+
+https.get('https://ccdevs-birchgoldgroup.cs66.force.com/webconnector/services/apexrest/', (res) => {
+    res.on('data', (chunk) => {
+        data += chunk;
+    });
+    res.on('end', () => {
+        console.log(JSON.parse(data));
+    });
 });
 
+app.use(cors());
+
  app.get('/', (req, res) => {
-     console.log('Upp');
-     res.sendFile(path.join(__dirname, './index.html'));
+     //res.sendFile(path.join(__dirname, './index.html'));
+     res.send(data);
  });
 
  app.post('/', (req, res) => {
